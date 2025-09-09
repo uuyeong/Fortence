@@ -263,7 +263,12 @@ const FortuneAnalysis: React.FC<FortuneAnalysisProps> = ({ userId }) => {
             <img 
               src="/vector_k.png" 
               alt="Analyzing" 
-              className="analyzing-image"
+              className="analyzing-image-main"
+            />
+            <img 
+              src="/vector_dudu.png" 
+              alt="Analyzing" 
+              className="analyzing-image-dudu"
             />
             <p className="analyzing-text">🔮 사주 분석 중입니다...</p>
           </div>

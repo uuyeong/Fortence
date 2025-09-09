@@ -92,8 +92,8 @@
 }
 
 .new-analysis-btn {
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
+  background: rgba(37, 1, 41, 0.4);
+  color: rgb(255, 255, 255);
   border: 2px solid rgba(255, 255, 255, 0.3);
   padding: 10px 20px;
   font-size: 14px;
