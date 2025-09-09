@@ -139,7 +139,7 @@ user-info-site/
 
 - XAMPP의 MySQL이 실행 중이어야 합니다
 - Gemini API 키가 필요합니다
-- Python Flask 서버는 포트 5000에서 실행됩니다
+- Python Flask 서버는 포트 5001에서 실행됩니다
 - React 앱은 포트 3000에서 실행됩니다
 - CORS가 설정되어 있어 React 앱에서 Flask API를 호출할 수 있습니다
 - 첫 실행 시 Sentence Transformers 모델 다운로드로 인해 시간이 소요될 수 있습니다

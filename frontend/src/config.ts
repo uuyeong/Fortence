@@ -7,11 +7,11 @@ const getBaseUrl = (): string => {
   
   // 현재 호스트가 localhost가 아니면 실제 서버 IP 사용
   if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
-    return 'http://121.138.24.119:5000';
+    return 'http://121.138.24.119:5001';
   }
   
   // 로컬 개발 환경에서는 localhost 사용
-  return 'http://localhost:5000';
+  return 'http://localhost:5001';
 };
 
 export const API_CONFIG = {
