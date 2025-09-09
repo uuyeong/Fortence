@@ -29,7 +29,6 @@ else:
 def get_db_connection():
     """데이터베이스 연결을 반환합니다."""
     try:
-        # 한자 처리를 위한 연결 설정
         connection = pymysql.connect(
             **DB_CONFIG,
             use_unicode=True,
@@ -40,24 +39,19 @@ def get_db_connection():
         print(f"데이터베이스 연결 오류: {e}")
         return None
 
-def validate_hanja_name(name):
-    """한자 이름 검증 함수"""
+def validate_name(name):
+    """이름 검증 함수"""
     if not name or not isinstance(name, str):
         return False
     
-    # 한자 범위: 기본 한자(U+4E00~U+9FFF) + 확장 한자(U+3400~U+4DBF) + 호환 한자(U+F900~U+FAFF)
-    hanja_pattern = re.compile(r'^[\u4e00-\u9fff\u3400-\u4dbf\uf900-\ufaff]+$')
-    
-    # 길이 검증 (2-4글자)
-    if len(name) < 2 or len(name) > 4:
-        return False
-    
-    return bool(hanja_pattern.match(name))
+    # 이름이 비어있지 않고 적절한 길이면 통과
+    name = name.strip()
+    return len(name) > 0 and len(name) <= 50
 
 def init_database():
     """데이터베이스와 테이블을 초기화합니다."""
     try:
-        # 데이터베이스 생성 (한자 처리 최적화)
+        # 데이터베이스 생성
         connection = pymysql.connect(
             host=DB_CONFIG['host'],
             user=DB_CONFIG['user'],
@@ -70,11 +64,11 @@ def init_database():
             cursor.execute(f"CREATE DATABASE IF NOT EXISTS {DB_CONFIG['database']}")
             cursor.execute(f"USE {DB_CONFIG['database']}")
             
-            # 사용자 정보 테이블 생성 (한자 처리 최적화)
+            # 사용자 정보 테이블 생성
             create_users_table = """
             CREATE TABLE IF NOT EXISTS users (
                 id INT AUTO_INCREMENT PRIMARY KEY,
-                name VARCHAR(100) NOT NULL COMMENT '이름 (한자)',
+                name VARCHAR(100) NOT NULL COMMENT '이름',
                 birth_date DATE NOT NULL COMMENT '생년월일',
                 birth_time TIME NOT NULL COMMENT '태어난 시간',
                 message TEXT NOT NULL COMMENT '할말',
@@ -129,12 +123,12 @@ def init_database():
             """
             cursor.execute(create_experiences_table)
             
-            # 한자 처리를 위한 인덱스 추가
+            # 검색 성능 향상을 위한 인덱스 추가
             try:
                 cursor.execute("CREATE INDEX IF NOT EXISTS idx_users_name ON users(name)")
                 cursor.execute("CREATE INDEX IF NOT EXISTS idx_users_birth_date ON users(birth_date)")
                 cursor.execute("CREATE INDEX IF NOT EXISTS idx_users_birth_time ON users(birth_time)")
-                print("한자 처리용 인덱스가 생성되었습니다.")
+                print("데이터베이스 인덱스가 생성되었습니다.")
             except Exception as idx_error:
                 print(f"인덱스 생성 중 오류 (무시 가능): {idx_error}")
             
@@ -159,9 +153,9 @@ def create_user():
             if field not in data or not data[field]:
                 return jsonify({'error': f'{field} 필드는 필수입니다.'}), 400
         
-        # 한자 이름 검증
-        if not validate_hanja_name(data['name']):
-            return jsonify({'error': '이름은 2-4글자의 한자만 입력해주세요.'}), 400
+        # 이름 검증
+        if not validate_name(data['name']):
+            return jsonify({'error': '올바른 이름을 입력해주세요.'}), 400
         
         # 데이터베이스 연결
         connection = get_db_connection()
@@ -277,9 +271,9 @@ def analyze_fortune():
             if field not in data or not data[field]:
                 return jsonify({'error': f'{field} 필드는 필수입니다.'}), 400
         
-        # 한자 이름 검증
-        if not validate_hanja_name(data['name']):
-            return jsonify({'error': '이름은 2-4글자의 한자만 입력해주세요.'}), 400
+        # 이름 검증
+        if not validate_name(data['name']):
+            return jsonify({'error': '올바른 이름을 입력해주세요.'}), 400
         
         # 사용자 프로필 조회
         profile_data = None

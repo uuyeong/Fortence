@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { getApiUrl, API_CONFIG } from '../config';
 import './FortuneAnalysis.css';
 
 interface FortuneData {
@@ -37,7 +38,7 @@ const FortuneAnalysis: React.FC<FortuneAnalysisProps> = ({ userId }) => {
         console.log('사용자 ID:', userId); // 디버깅용
         try {
           // 사용자 정보 가져오기
-          const userResponse = await axios.get(`http://localhost:5000/api/users/${userId}`);
+          const userResponse = await axios.get(`${getApiUrl(API_CONFIG.ENDPOINTS.USERS)}/${userId}`);
           console.log('API 응답:', userResponse); // 디버깅용
           const userData = userResponse.data;
           
@@ -112,7 +113,7 @@ const FortuneAnalysis: React.FC<FortuneAnalysisProps> = ({ userId }) => {
     setIsAnalyzing(true);
     try {
       const analysisData = data || fortuneData;
-      const response = await axios.post('http://localhost:5000/api/fortune/analyze', analysisData);
+      const response = await axios.post(getApiUrl(API_CONFIG.ENDPOINTS.FORTUNE_ANALYZE), analysisData);
       setAnalysisResult({
         analysis: response.data.analysis
       });
@@ -150,7 +151,6 @@ const FortuneAnalysis: React.FC<FortuneAnalysisProps> = ({ userId }) => {
         <div className="auto-analysis-notice">
           <h3>✨ 자동 사주 분석 시작!</h3>
           <p>입력하신 정보를 바탕으로 사주 분석을 진행하고 있습니다.</p>
-          <p>한자 획수를 인터넷에서 검색하여 정확한 분석을 제공합니다.</p>
         </div>
       )}
       
@@ -160,7 +160,7 @@ const FortuneAnalysis: React.FC<FortuneAnalysisProps> = ({ userId }) => {
           <h3>📋 사용자 정보</h3>
           <div className="info-grid">
             <div className="info-item">
-              <span className="info-label">이름 (한자):</span>
+              <span className="info-label">이름:</span>
               <span className="info-value">{fortuneData.name || '정보 없음'}</span>
             </div>
             <div className="info-item">
