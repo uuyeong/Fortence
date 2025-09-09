@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import UserInfoForm from './components/UserInfoForm';
 import FortuneAnalysis from './components/FortuneAnalysis';
