@@ -193,7 +193,7 @@ const FortuneAnalysis: React.FC<FortuneAnalysisProps> = ({ userId }) => {
     return (
       <div className="fortune-analysis-container">
         <div className="login-required">
-          <h2>📝 사용자 정보를 먼저 입력해주세요</h2>
+          <h2>사용자 정보를 먼저 입력해주세요</h2>
           <p>사주 분석을 위해서는 사용자 정보가 필요합니다.</p>
           <p>위에서 정보를 입력하시면 자동으로 사주 분석이 시작됩니다.</p>
         </div>
@@ -207,7 +207,7 @@ const FortuneAnalysis: React.FC<FortuneAnalysisProps> = ({ userId }) => {
       
       {autoAnalysisTriggered && (
         <div className="auto-analysis-notice">
-          <h3>✨ 자동 사주 분석 시작!</h3>
+          <h3>자동 사주 분석 시작!</h3>
           <p>입력하신 정보를 바탕으로 사주 분석을 진행하고 있습니다.</p>
         </div>
       )}
@@ -215,7 +215,7 @@ const FortuneAnalysis: React.FC<FortuneAnalysisProps> = ({ userId }) => {
 
       <div className="form-container">
         <div className="user-info-display">
-          <h3>📋 사용자 정보</h3>
+          <h3>사용자 정보</h3>
           <div className="info-grid">
             <div className="info-item">
               <span className="info-label">이름:</span>
@@ -258,14 +258,25 @@ const FortuneAnalysis: React.FC<FortuneAnalysisProps> = ({ userId }) => {
           {isAnalyzing ? '분석 중...' : '사주 분석하기'}
         </button>
         
+        {isAnalyzing && (
+          <div className="analyzing-container">
+            <img 
+              src="/vector_k.png" 
+              alt="Analyzing" 
+              className="analyzing-image"
+            />
+            <p className="analyzing-text">🔮 사주 분석 중입니다...</p>
+          </div>
+        )}
+        
         <div className="analysis-note">
-          <p>💡 사용자 정보는 자동으로 로드되었습니다. 추가 메시지만 입력하시면 됩니다.</p>
+          <p>사용자 정보는 자동으로 로드되었습니다. 추가 메시지만 입력하시면 됩니다.</p>
         </div>
       </div>
 
       {analysisResult && (
         <div className="result-container">
-          <h2>📊 사주 분석 결과</h2>
+          <h2>사주 분석 결과</h2>
           <div className="analysis-sections">
             {parseAnalysisResult(analysisResult.analysis).map((section, index) => (
               <div key={index} className="analysis-section">

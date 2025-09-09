@@ -1,15 +1,57 @@
 .user-info-form-container {
   max-width: 600px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 0 20px 20px 20px;
   font-family: 'Arial', sans-serif;
+  line-height: 1;
+}
+
+.form-header {
+  text-align: center;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  line-height: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  min-width: 300px;
+}
+
+
+.cute-vector-image {
+  width: 160px;
+  height: 160px;
+  margin: 0;
+  padding: 0;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+  border: none;
+  outline: none;
+}
+
+.talk-vector-image {
+  width: 180px;
+  height: 180px;
+  margin: 0;
+  padding: 0;
+  display: block;
+  object-fit: contain;
+  object-position: center;
+  border: none;
+  outline: none;
+  transform: translateY(-30px);
 }
 
 .user-info-form-container h1 {
-  text-align: center;
   color: #333;
-  margin-bottom: 30px;
+  margin: 0;
   font-size: 2.5rem;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .user-info-form {
@@ -17,6 +59,7 @@
   padding: 30px;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 0;
 }
 
 .form-group {
@@ -67,7 +110,7 @@
 .submit-button {
   width: 100%;
   padding: 15px;
-  background-color: #4CAF50;
+  background-color: #9c5ca9;
   color: white;
   border: none;
   border-radius: 5px;
@@ -157,6 +200,20 @@
   
   .user-info-form-container h1 {
     font-size: 2rem;
+  }
+  
+  .cute-vector-image {
+    width: 140px;
+    height: 140px;
+  }
+  
+  .talk-vector-image {
+    width: 157px;
+    height: 157px;
+  }
+  
+  .form-header {
+    gap: 15px;
   }
   
   .form-row {
