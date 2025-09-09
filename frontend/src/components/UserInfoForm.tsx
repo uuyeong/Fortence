@@ -156,7 +156,19 @@ const UserInfoForm: React.FC<UserInfoFormProps> = ({ onUserSubmit }) => {
 
   return (
     <div className="user-info-form-container">
-      <h1>사용자 정보 입력</h1>
+      <div className="form-header">
+        <img 
+          src="/vector_cute.png" 
+          alt="Cute Vector" 
+          className="cute-vector-image"
+        />
+        <img 
+          src="/vector_talk.png" 
+          alt="Talk Vector" 
+          className="talk-vector-image"
+        />
+        {/* <h1>사용자 정보 입력</h1> */}
+      </div>
       <form onSubmit={handleSubmit} className="user-info-form">
         <div className="form-group">
           <label htmlFor="name">이름:</label>
