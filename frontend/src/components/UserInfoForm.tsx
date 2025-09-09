@@ -66,7 +66,7 @@ const UserInfoForm: React.FC<UserInfoFormProps> = ({ onUserSubmit }) => {
 
     try {
       // 1. 사용자 기본 정보 저장
-      const userResponse = await axios.post('http://localhost:5000/api/users', {
+      const userResponse = await axios.post('http://localhost:5001/api/users', {
         name: formData.name,
         birthDate: formData.birthDate,
         birthTime: formData.birthTime,
@@ -76,7 +76,7 @@ const UserInfoForm: React.FC<UserInfoFormProps> = ({ onUserSubmit }) => {
       const userId = userResponse.data.user_id;
       
       // 2. 사용자 프로필 저장
-      await axios.post('http://localhost:5000/api/profile', {
+      await axios.post('http://localhost:5001/api/profile', {
         userId: userId,
         financialStatus: formData.financialStatus,
         occupation: formData.occupation,

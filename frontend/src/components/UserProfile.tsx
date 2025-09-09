@@ -36,7 +36,7 @@ const UserProfile: React.FC = () => {
 
   const loadProfile = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/profile/${profile.userId}`);
+      const response = await axios.get(`http://localhost:5001/api/profile/${profile.userId}`);
       if (response.data.profile) {
         setProfile(prev => ({
           ...prev,
@@ -62,7 +62,7 @@ const UserProfile: React.FC = () => {
     setSubmitStatus('idle');
 
     try {
-      const response = await axios.post('http://localhost:5000/api/profile', profile);
+      const response = await axios.post('http://localhost:5001/api/profile', profile);
       console.log('프로필 저장 성공:', response.data);
       setSubmitStatus('success');
     } catch (error) {

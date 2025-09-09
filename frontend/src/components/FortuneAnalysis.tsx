@@ -37,7 +37,7 @@ const FortuneAnalysis: React.FC<FortuneAnalysisProps> = ({ userId }) => {
         console.log('사용자 ID:', userId); // 디버깅용
         try {
           // 사용자 정보 가져오기
-          const userResponse = await axios.get(`http://localhost:5000/api/users/${userId}`);
+          const userResponse = await axios.get(`http://localhost:5001/api/users/${userId}`);
           console.log('API 응답:', userResponse); // 디버깅용
           const userData = userResponse.data;
           
@@ -112,7 +112,7 @@ const FortuneAnalysis: React.FC<FortuneAnalysisProps> = ({ userId }) => {
     setIsAnalyzing(true);
     try {
       const analysisData = data || fortuneData;
-      const response = await axios.post('http://localhost:5000/api/fortune/analyze', analysisData);
+      const response = await axios.post('http://localhost:5001/api/fortune/analyze', analysisData);
       setAnalysisResult({
         analysis: response.data.analysis
       });
@@ -127,6 +127,64 @@ const FortuneAnalysis: React.FC<FortuneAnalysisProps> = ({ userId }) => {
 
   const handleAnalysis = () => {
     handleFortuneAnalysis();
+  };
+
+  // 분석 결과를 파싱하여 각 항목별로 분리하는 함수
+  const parseAnalysisResult = (analysisText: string) => {
+    const sections = [];
+    const lines = analysisText.split('\n');
+    let currentSection = null;
+    let currentContent = [];
+
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i].trim();
+      
+      // 번호와 제목을 찾는 패턴들 (다양한 형태 지원)
+      const titlePatterns = [
+        /^(\d+)\.\s*(.+?):?\s*$/,  // 1. 제목:
+        /^\*\*(\d+)\.\s*(.+?):?\*\*/,  // **1. 제목:**
+        /^(\d+)\.\s*\*\*(.+?)\*\*/,  // 1. **제목**
+        /^(\d+)\.\s*(.+?)$/  // 1. 제목 (콜론 없음)
+      ];
+      
+      let titleMatch = null;
+      for (const pattern of titlePatterns) {
+        titleMatch = line.match(pattern);
+        if (titleMatch) break;
+      }
+      
+      if (titleMatch) {
+        // 이전 섹션이 있다면 저장
+        if (currentSection) {
+          sections.push({
+            number: currentSection.number,
+            title: currentSection.title,
+            content: currentContent.join('\n').trim()
+          });
+        }
+        
+        // 새로운 섹션 시작
+        currentSection = {
+          number: titleMatch[1],
+          title: titleMatch[2].replace(/[:\*\s]*$/, '').trim() // 끝의 콜론, 별표, 공백 제거
+        };
+        currentContent = [];
+      } else if (currentSection && line) {
+        // 현재 섹션의 내용 추가 (빈 줄이 아닌 경우만)
+        currentContent.push(line);
+      }
+    }
+
+    // 마지막 섹션 저장
+    if (currentSection) {
+      sections.push({
+        number: currentSection.number,
+        title: currentSection.title,
+        content: currentContent.join('\n').trim()
+      });
+    }
+
+    return sections;
   };
 
   // 사용자 정보가 없는 경우 안내 메시지 표시
@@ -208,9 +266,19 @@ const FortuneAnalysis: React.FC<FortuneAnalysisProps> = ({ userId }) => {
       {analysisResult && (
         <div className="result-container">
           <h2>📊 사주 분석 결과</h2>
-          <div className="analysis-text">
-            {analysisResult.analysis.split('\n').map((line, index) => (
-              <p key={index}>{line}</p>
+          <div className="analysis-sections">
+            {parseAnalysisResult(analysisResult.analysis).map((section, index) => (
+              <div key={index} className="analysis-section">
+                <h3 className="section-title">
+                  <span className="section-number">{section.number}.</span>
+                  <span className="section-title-text">{section.title}</span>
+                </h3>
+                <div className="section-content">
+                  {section.content.split('\n').map((line, lineIndex) => (
+                    <p key={lineIndex}>{line}</p>
+                  ))}
+                </div>
+              </div>
             ))}
           </div>
         </div>
