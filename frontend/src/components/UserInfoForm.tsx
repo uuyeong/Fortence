@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { getApiUrl, API_CONFIG } from '../config';
 import './UserInfoForm.css';
 
 interface UserInfo {
@@ -43,13 +44,15 @@ const UserInfoForm: React.FC<UserInfoFormProps> = ({ onUserSubmit }) => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     
-    // 이름 필드의 경우 한자만 허용 (확장된 한자 범위)
-    if (name === 'name') {
-      // 한자 범위 확장: 기본 한자(U+4E00~U+9FFF) + 확장 한자(U+3400~U+4DBF) + 호환 한자(U+F900~U+FAFF)
-      const cleanedValue = value.replace(/[^\u4e00-\u9fff\u3400-\u4dbf\uf900-\ufaff]/g, '');
+    // 생년월일 입력 처리 (YYYYMMDD 형식)
+    if (name === 'birthDate') {
+      // 숫자만 허용하고 8자리로 제한
+      const numbersOnly = value.replace(/\D/g, '');
+      const limitedValue = numbersOnly.slice(0, 8);
+      
       setFormData(prev => ({
         ...prev,
-        [name]: cleanedValue
+        [name]: limitedValue
       }));
     } else {
       setFormData(prev => ({
@@ -59,16 +62,51 @@ const UserInfoForm: React.FC<UserInfoFormProps> = ({ onUserSubmit }) => {
     }
   };
 
+  // 날짜 형식 검증 함수
+  const validateBirthDate = (dateString: string): boolean => {
+    if (dateString.length !== 8) return false;
+    
+    const year = parseInt(dateString.substring(0, 4));
+    const month = parseInt(dateString.substring(4, 6));
+    const day = parseInt(dateString.substring(6, 8));
+    
+    // 기본적인 범위 검증
+    if (year < 1900 || year > new Date().getFullYear()) return false;
+    if (month < 1 || month > 12) return false;
+    if (day < 1 || day > 31) return false;
+    
+    // 월별 일수 검증
+    const daysInMonth = new Date(year, month, 0).getDate();
+    if (day > daysInMonth) return false;
+    
+    return true;
+  };
+
+  // YYYYMMDD를 YYYY-MM-DD로 변환
+  const formatDateForAPI = (dateString: string): string => {
+    if (dateString.length === 8) {
+      return `${dateString.substring(0, 4)}-${dateString.substring(4, 6)}-${dateString.substring(6, 8)}`;
+    }
+    return dateString;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus('idle');
 
+    // 생년월일 검증
+    if (!validateBirthDate(formData.birthDate)) {
+      alert('올바른 생년월일을 입력해주세요. (예: 20020920)');
+      setIsSubmitting(false);
+      return;
+    }
+
     try {
       // 1. 사용자 기본 정보 저장
-      const userResponse = await axios.post('http://localhost:5001/api/users', {
+      const userResponse = await axios.post(getApiUrl(API_CONFIG.ENDPOINTS.USERS), {
         name: formData.name,
-        birthDate: formData.birthDate,
+        birthDate: formatDateForAPI(formData.birthDate),
         birthTime: formData.birthTime,
         message: formData.message
       });
@@ -76,7 +114,7 @@ const UserInfoForm: React.FC<UserInfoFormProps> = ({ onUserSubmit }) => {
       const userId = userResponse.data.user_id;
       
       // 2. 사용자 프로필 저장
-      await axios.post('http://localhost:5001/api/profile', {
+      await axios.post(getApiUrl(API_CONFIG.ENDPOINTS.PROFILE), {
         userId: userId,
         financialStatus: formData.financialStatus,
         occupation: formData.occupation,
@@ -121,7 +159,7 @@ const UserInfoForm: React.FC<UserInfoFormProps> = ({ onUserSubmit }) => {
       <h1>사용자 정보 입력</h1>
       <form onSubmit={handleSubmit} className="user-info-form">
         <div className="form-group">
-          <label htmlFor="name">이름 (한자):</label>
+          <label htmlFor="name">이름:</label>
           <input
             type="text"
             id="name"
@@ -129,25 +167,25 @@ const UserInfoForm: React.FC<UserInfoFormProps> = ({ onUserSubmit }) => {
             value={formData.name}
             onChange={handleInputChange}
             required
-            placeholder="한자 이름만 입력하세요 (예: 金哲洙)"
+            placeholder="이름을 입력하세요"
           />
-          <small className="form-help">
-            ⚠️ 한자만 입력해주세요. 한글이 섞이면 사주 분석이 부정확할 수 있습니다.<br/>
-          </small>
         </div>
 
         <div className="form-group">
           <label htmlFor="birthDate">생년월일 (양력):</label>
           <input
-            type="date"
+            type="text"
             id="birthDate"
             name="birthDate"
             value={formData.birthDate}
             onChange={handleInputChange}
             required
+            placeholder="20020920"
+            maxLength={8}
+            pattern="[0-9]{8}"
           />
           <small className="form-help">
-            📅 양력 생년월일을 입력해주세요. 자동으로 음력으로 변환한 후 음력 기준으로 사주를 계산합니다.
+            📅 생년월일을 8자리 숫자로 입력해주세요. (예: 20020920) 자동으로 음력으로 변환한 후 음력 기준으로 사주를 계산합니다.
           </small>
         </div>
 

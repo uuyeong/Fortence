@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { getApiUrl, API_CONFIG } from '../config';
 import './UserProfile.css';
 
 interface UserProfile {
@@ -36,7 +37,7 @@ const UserProfile: React.FC = () => {
 
   const loadProfile = async () => {
     try {
-      const response = await axios.get(`http://localhost:5001/api/profile/${profile.userId}`);
+      const response = await axios.get(`${getApiUrl(API_CONFIG.ENDPOINTS.PROFILE)}/${profile.userId}`);
       if (response.data.profile) {
         setProfile(prev => ({
           ...prev,
@@ -62,7 +63,7 @@ const UserProfile: React.FC = () => {
     setSubmitStatus('idle');
 
     try {
-      const response = await axios.post('http://localhost:5001/api/profile', profile);
+      const response = await axios.post(getApiUrl(API_CONFIG.ENDPOINTS.PROFILE), profile);
       console.log('프로필 저장 성공:', response.data);
       setSubmitStatus('success');
     } catch (error) {
