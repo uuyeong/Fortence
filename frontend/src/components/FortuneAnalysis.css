@@ -1,0 +1,488 @@
+.fortune-analysis-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.fortune-analysis-container h1 {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 30px;
+  font-size: 2.5em;
+}
+
+.auto-analysis-notice {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 15px 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.auto-analysis-notice p {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.user-info-display {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.user-info-display h3 {
+  margin: 0 0 15px 0;
+  color: #2c3e50;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.info-label {
+  font-weight: 600;
+  color: #6c757d;
+  font-size: 14px;
+}
+
+.info-value {
+  color: #2c3e50;
+  font-size: 16px;
+  padding: 8px 12px;
+  background: white;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  min-height: 20px;
+}
+
+.analysis-note {
+  background: #e3f2fd;
+  border: 1px solid #bbdefb;
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-top: 15px;
+  text-align: center;
+}
+
+.analysis-note p {
+  margin: 0;
+  color: #1976d2;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+
+.form-container {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 14px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid #ecf0f1;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.analyze-button {
+  width: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 20px;
+}
+
+.analyze-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+}
+
+.analyze-button:disabled {
+  background: #215d86;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.result-container {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+.result-container h2 {
+  color: #2c3e50;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 1.8em;
+}
+
+.analysis-text {
+  line-height: 1.8;
+  color: #34495e;
+  font-size: 16px;
+}
+
+.analysis-text p {
+  margin-bottom: 15px;
+  padding: 10px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #3498db;
+}
+
+.analysis-text p:last-child {
+  margin-bottom: 0;
+}
+
+/* 새로운 분석 결과 섹션 스타일 */
+.analysis-sections {
+  margin-top: 20px;
+}
+
+.analysis-section {
+  margin-bottom: 30px;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  margin: 0 0 15px 0;
+  padding: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #2c3e50;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 8px;
+}
+
+.section-number {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 50%;
+  font-size: 14px;
+  font-weight: 700;
+  margin-right: 12px;
+  min-width: 24px;
+  text-align: center;
+  display: inline-block;
+}
+
+.section-title-text {
+  flex: 1;
+  font-weight: 700;
+}
+
+.section-content {
+  background: #ffffff;
+  border: 2px solid #e9ecef;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  position: relative;
+  margin-left: 0;
+}
+
+.section-content::before {
+  content: '';
+  position: absolute;
+  left: -2px;
+  top: -2px;
+  bottom: -2px;
+  width: 4px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12px 0 0 12px;
+}
+
+.section-content p {
+  margin: 0 0 12px 0;
+  line-height: 1.7;
+  color: #34495e;
+  font-size: 15px;
+}
+
+.section-content p:last-child {
+  margin-bottom: 0;
+}
+
+/* 특별한 스타일링을 위한 추가 클래스들 */
+.section-content p strong {
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+.section-content p em {
+  color: #7f8c8d;
+  font-style: italic;
+}
+
+/* 분석 중 이미지 스타일 */
+.analyzing-container {
+  text-align: center;
+  margin: 30px 0;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+  min-height: 200px;
+}
+
+/* vector_k.png - 중앙에서 펄스 애니메이션 (원래대로) */
+.analyzing-image-main {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 15px auto;
+  display: block;
+  object-fit: contain;
+  animation: pulse 2s infinite;
+  position: relative;
+  z-index: 5;
+}
+
+/* vector_dudu.png - 휘리릭 휘리릭 이상하게 여기저기 움직임 */
+.analyzing-image-dudu {
+  width: 120px;
+  height: 120px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  object-fit: contain;
+  animation: crazyMove 1.5s infinite ease-in-out;
+  z-index: 10;
+}
+
+.analyzing-text {
+  font-size: 18px;
+  color: #2c3e50;
+  font-weight: 600;
+  margin: 0;
+  position: relative;
+  z-index: 5;
+  margin-top: 20px;
+}
+
+/* vector_k.png용 펄스 애니메이션 (원래) */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* vector_dudu.png용 미친 움직임 애니메이션 */
+@keyframes crazyMove {
+  0% {
+    transform: scale(0.3) translate(0, 0) rotate(0deg);
+    opacity: 0.4;
+  }
+  8% {
+    transform: scale(0.8) translate(300px, -40px) rotate(45deg);
+    opacity: 0.8;
+  }
+  16% {
+    transform: scale(0.5) translate(160px, 200px) rotate(-30deg);
+    opacity: 0.6;
+  }
+  24% {
+    transform: scale(1.2) translate(-100px, 100px) rotate(90deg);
+    opacity: 0.9;
+  }
+  32% {
+    transform: scale(0.7) translate(400px, 160px) rotate(-60deg);
+    opacity: 0.7;
+  }
+  40% {
+    transform: scale(0.9) translate(-200px, -60px) rotate(120deg);
+    opacity: 0.8;
+  }
+  48% {
+    transform: scale(0.4) translate(240px, -160px) rotate(-90deg);
+    opacity: 0.5;
+  }
+  56% {
+    transform: scale(1.1) translate(-160px, 240px) rotate(180deg);
+    opacity: 0.9;
+  }
+  64% {
+    transform: scale(0.6) translate(360px, -100px) rotate(-120deg);
+    opacity: 0.6;
+  }
+  72% {
+    transform: scale(0.8) translate(-60px, -200px) rotate(240deg);
+    opacity: 0.7;
+  }
+  80% {
+    transform: scale(1.0) translate(200px, 120px) rotate(-180deg);
+    opacity: 0.8;
+  }
+  88% {
+    transform: scale(0.5) translate(-300px, 80px) rotate(300deg);
+    opacity: 0.5;
+  }
+  96% {
+    transform: scale(0.7) translate(100px, -120px) rotate(-240deg);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(0.3) translate(0, 0) rotate(0deg);
+    opacity: 0.4;
+  }
+}
+
+@media (max-width: 768px) {
+  .fortune-analysis-container {
+    padding: 10px;
+  }
+  
+  .form-container,
+  .result-container {
+    padding: 20px;
+  }
+  
+  .analyzing-container {
+    min-height: 150px;
+  }
+  
+  .analyzing-image-main {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .analyzing-image-dudu {
+    width: 80px;
+    height: 80px;
+    top: 5px;
+    left: 5px;
+  }
+  
+  .analyzing-text {
+    font-size: 16px;
+    margin-top: 10px;
+  }
+  
+  /* 모바일용 미친 움직임 애니메이션 (넓은 범위) */
+  @keyframes crazyMove {
+    0% {
+      transform: scale(0.2) translate(0, 0) rotate(0deg);
+      opacity: 0.4;
+    }
+    8% {
+      transform: scale(0.6) translate(200px, -30px) rotate(45deg);
+      opacity: 0.8;
+    }
+    16% {
+      transform: scale(0.4) translate(100px, 140px) rotate(-30deg);
+      opacity: 0.6;
+    }
+    24% {
+      transform: scale(0.9) translate(-60px, 70px) rotate(90deg);
+      opacity: 0.9;
+    }
+    32% {
+      transform: scale(0.5) translate(260px, 110px) rotate(-60deg);
+      opacity: 0.7;
+    }
+    40% {
+      transform: scale(0.7) translate(-140px, -40px) rotate(120deg);
+      opacity: 0.8;
+    }
+    48% {
+      transform: scale(0.3) translate(160px, -110px) rotate(-90deg);
+      opacity: 0.5;
+    }
+    56% {
+      transform: scale(0.8) translate(-110px, 160px) rotate(180deg);
+      opacity: 0.9;
+    }
+    64% {
+      transform: scale(0.4) translate(240px, -70px) rotate(-120deg);
+      opacity: 0.6;
+    }
+    72% {
+      transform: scale(0.6) translate(-40px, -140px) rotate(240deg);
+      opacity: 0.7;
+    }
+    80% {
+      transform: scale(0.7) translate(140px, 80px) rotate(-180deg);
+      opacity: 0.8;
+    }
+    88% {
+      transform: scale(0.3) translate(-200px, 50px) rotate(300deg);
+      opacity: 0.5;
+    }
+    96% {
+      transform: scale(0.5) translate(70px, -80px) rotate(-240deg);
+      opacity: 0.6;
+    }
+    100% {
+      transform: scale(0.2) translate(0, 0) rotate(0deg);
+      opacity: 0.4;
+    }
+  }
+}

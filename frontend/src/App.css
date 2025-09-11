@@ -1,0 +1,132 @@
+/*.App {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px 0;
+}*/
+
+.App {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  /* 배경 이미지는 React에서 동적으로 설정됩니다 */
+}
+
+.app-header {
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+.title-vector-image {
+  width: 450px;
+  height: auto;
+  margin: 0 auto;
+  padding: 0;
+  display: block;
+  object-fit: contain;
+  object-position: center;
+  border: none;
+  outline: none;
+}
+
+.app-header h1 {
+  color: white;
+  font-size: 3em;
+  margin-bottom: 30px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.tab-navigation {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.nav-tab {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  padding: 15px 25px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.nav-tab:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.nav-tab.active {
+  background: rgba(255, 255, 255, 0.9);
+  color: #2c3e50;
+  border-color: white;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+.app-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.user-info span {
+  font-size: 18px;
+  color: white;
+  font-weight: 500;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.new-analysis-btn {
+  background: rgba(37, 1, 41, 0.4);
+  color: rgb(255, 255, 255);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.new-analysis-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+
+@media (max-width: 768px) {
+  .title-vector-image {
+    width: 375px;
+    margin: 0;
+  }
+  
+  .app-header h1 {
+    font-size: 2em;
+  }
+  
+  .nav-tab {
+    padding: 12px 20px;
+    font-size: 14px;
+  }
+  
+  .tab-navigation {
+    gap: 5px;
+  }
+}
