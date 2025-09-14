@@ -203,12 +203,10 @@ const FortuneAnalysis: React.FC<FortuneAnalysisProps> = ({ userId }) => {
 
   return (
     <div className="fortune-analysis-container">
-      <h1>🔮 사주 분석</h1>
-      
       {autoAnalysisTriggered && (
         <div className="auto-analysis-notice">
-          <h3>자동 사주 분석 시작!</h3>
-          <p>입력하신 정보를 바탕으로 사주 분석을 진행하고 있습니다.</p>
+          <h3>사주 분석 시작!</h3>
+          <p>분석중이니 잠깐 기다리도록 ㅋ</p>
         </div>
       )}
       
@@ -270,12 +268,12 @@ const FortuneAnalysis: React.FC<FortuneAnalysisProps> = ({ userId }) => {
               alt="Analyzing" 
               className="analyzing-image-dudu"
             />
-            <p className="analyzing-text">🔮 사주 분석 중입니다...</p>
+            <p className="analyzing-text">사주 분석 중...</p>
           </div>
         )}
         
         <div className="analysis-note">
-          <p>사용자 정보는 자동으로 로드되었습니다. 추가 메시지만 입력하시면 됩니다.</p>
+          <p>더 궁금한게 있으면 물어보던가</p>
         </div>
       </div>
 

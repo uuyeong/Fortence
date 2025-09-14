@@ -8,7 +8,31 @@
   min-height: 100vh;
   margin: 0;
   padding: 0;
-  /* 배경 이미지는 React에서 동적으로 설정됩니다 */
+  transition: background 0.5s ease-in-out;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* 브라우저 기본 스타일 제거 */
+body {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+}
+
+html {
+  margin: 0;
+  padding: 0;
+}
+
+/* 첫 번째 페이지 - 흰색 배경에 연한 하늘색 그라데이션 */
+.App.user-page {
+  background: linear-gradient(135deg, #ffffff 0%, #e3f2fd 50%, #bbdefb 100%);
+}
+
+/* 두 번째 페이지 - 남색에 보라색 그라데이션 */
+.App.fortune-page {
+  background: linear-gradient(135deg, #1a237e 0%, #3f51b5 50%, #9c27b0 100%);
 }
 
 .app-header {
@@ -17,16 +41,28 @@
   padding: 0;
 }
 
-.title-vector-image {
-  width: 450px;
-  height: auto;
-  margin: 0 auto;
+.app-title {
+  font-size: 8em;
+  font-weight: 700;
+  margin: 20px 0;
   padding: 0;
-  display: block;
-  object-fit: contain;
-  object-position: center;
-  border: none;
-  outline: none;
+  text-align: center;
+  background: linear-gradient(135deg, #ffbcf7 0%, #4a1381 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
+  letter-spacing: 4px;
+}
+
+/* 두 번째 페이지에서 제목을 흰색으로 */
+.App.fortune-page .app-title {
+  background: none;
+  -webkit-background-clip: unset;
+  -webkit-text-fill-color: unset;
+  background-clip: unset;
+  color: #ffffff;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
 }
 
 .app-header h1 {
@@ -112,9 +148,16 @@
 
 
 @media (max-width: 768px) {
-  .title-vector-image {
-    width: 375px;
-    margin: 0;
+  .app-title {
+    font-size: 5em;
+    margin: 15px 0;
+    letter-spacing: 3px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* 모바일에서 두 번째 페이지 제목 */
+  .App.fortune-page .app-title {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   }
   
   .app-header h1 {
