@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { getApiUrl, API_CONFIG } from '../config';
+import TermsOfService from './TermsOfService';
 import './UserInfoForm.css';
 
 interface UserInfo {
@@ -40,6 +41,8 @@ const UserInfoForm: React.FC<UserInfoFormProps> = ({ onUserSubmit }) => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const [showTerms, setShowTerms] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -92,6 +95,13 @@ const UserInfoForm: React.FC<UserInfoFormProps> = ({ onUserSubmit }) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // 개인정보 동의 확인
+    if (!agreedToTerms) {
+      alert('개인정보 수집 및 이용에 동의해주세요.');
+      return;
+    }
+    
     setIsSubmitting(true);
     setSubmitStatus('idle');
 
@@ -153,6 +163,11 @@ const UserInfoForm: React.FC<UserInfoFormProps> = ({ onUserSubmit }) => {
       setIsSubmitting(false);
     }
   };
+
+  // 약관 페이지 표시
+  if (showTerms) {
+    return <TermsOfService onBack={() => setShowTerms(false)} />;
+  }
 
   return (
     <div className="user-info-form-container">
@@ -228,7 +243,7 @@ const UserInfoForm: React.FC<UserInfoFormProps> = ({ onUserSubmit }) => {
 
         {/* 프로필 정보 섹션 */}
         <div className="profile-section">
-          <h2>📋 개인 프로필 (필수사항)</h2>
+          <h2>개인 프로필 (필수사항)</h2>
           <p className="profile-description">
             더 정확한 사주 분석을 위해 현재 상황을 알려주세요.
           </p>
@@ -344,9 +359,31 @@ const UserInfoForm: React.FC<UserInfoFormProps> = ({ onUserSubmit }) => {
           </div>
         </div>
 
+        {/* 개인정보 동의 체크박스 */}
+        <div className="terms-agreement">
+          <label className="terms-checkbox-label">
+            <input
+              type="checkbox"
+              checked={agreedToTerms}
+              onChange={(e) => setAgreedToTerms(e.target.checked)}
+              className="terms-checkbox"
+            />
+            <span className="terms-text">
+              [필수] 개인정보 수집 및 이용 동의 
+              <button 
+                type="button" 
+                onClick={() => setShowTerms(true)}
+                className="terms-link-button"
+              >
+                (보기)
+              </button>
+            </span>
+          </label>
+        </div>
+
         <button 
           type="submit" 
-          disabled={isSubmitting}
+          disabled={isSubmitting || !agreedToTerms}
           className="submit-button"
         >
           {isSubmitting ? '전송 중...' : '제출하기'}
