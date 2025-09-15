@@ -243,7 +243,7 @@ const UserInfoForm: React.FC<UserInfoFormProps> = ({ onUserSubmit }) => {
 
         {/* 프로필 정보 섹션 */}
         <div className="profile-section">
-          <h2>📋 개인 프로필 (필수사항)</h2>
+          <h2>개인 프로필 (필수사항)</h2>
           <p className="profile-description">
             더 정확한 사주 분석을 위해 현재 상황을 알려주세요.
           </p>
